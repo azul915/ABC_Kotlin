@@ -1,3 +1,3 @@
-fun main() {
-    ABC001_A()
+fun main(args: Array<String>) {
+
 }

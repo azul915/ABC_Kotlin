@@ -1,6 +1,4 @@
 fun ABC001_A() {
-     val list = arrayListOf("10", "11", "1001")
-     for ((index, element) in list.withIndex()) {
-          println("$index: $element")
-     }
+     val array = Array(2) { readLine()!!.toInt() }
+     println(array[0] - array[1])
 }
