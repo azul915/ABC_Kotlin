@@ -1,7 +1,4 @@
 fun ABC011_A() {
-
-    var input = readLine()!!.toInt()
-    val next = if(input <= 12) input++ else 13
-    println(next)
-
+    val month = readLine()!!.toInt()
+    println(if(month <= 11) month + 1 else 1)
 }
