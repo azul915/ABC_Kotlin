@@ -1,3 +1,3 @@
-fun ABC029() {
+fun ABC029_A() {
     println("${readLine()!!}s")
 }
