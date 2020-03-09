@@ -1,4 +1,5 @@
 fun ABC113_A(){
-    val (a, b) = readLine()!!.map { it.toInt() }
-    println(a + b/2)
+    val (x, y) = readLine()!!.split(" ").map { it.toInt() }
+    println(x + y/2)
 }
+
