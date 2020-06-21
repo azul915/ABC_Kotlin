@@ -9,8 +9,7 @@ fun main(args: Array<String>) {
             result.append(az[25])
             n--
         } else {
-            val s = h
-            result.append(az[s - 1])
+            result.append(az[h-1])
         }
         n /= 26
     }
