@@ -1,2 +1,5 @@
-fun main(args: Array<String>) {
+import LeetCode.*
+
+fun main() {
+    print(test())
 }
