@@ -3,5 +3,5 @@ fun ABC137_A() {
     val summation = A + B
     val difference = A - B
     val product = A * B
-    println(mutableListOf(summation, difference, product).max())
+    println(mutableListOf(summation, difference, product).maxOrNull())
 }

@@ -5,7 +5,7 @@ fun ABC112_B() {
     val ans = if (cost.isEmpty()) {
         "TLE"
     } else {
-        cost.minBy { it[0] }!![0].toString()
+        cost.minByOrNull { it[0] }!![0].toString()
     }
     println(ans)
 }
