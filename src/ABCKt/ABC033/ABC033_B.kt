@@ -12,6 +12,6 @@ fun ABC033_B() {
     if (ans.isEmpty()) {
         println("atcoder")
     } else {
-        println(ans.maxBy { it.value }!!.key)
+        println(ans.maxByOrNull { it.value }!!.key)
     }
 }
