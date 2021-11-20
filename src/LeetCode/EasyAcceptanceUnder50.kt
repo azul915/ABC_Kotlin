@@ -29,3 +29,39 @@ fun deleteDuplicates(head: ListNode?): ListNode? {
     }
     return head
 }
+
+class MyStack {
+
+    private var q1 = java.util.ArrayDeque<Int>()
+
+    fun push(x: Int) {
+        q1.add(x)
+    }
+
+    fun pop(): Int {
+        var q2 = java.util.ArrayDeque<Int>()
+        while (q1.size > 1) {
+            val head = q1.removeFirst()
+            q2.add(head)
+        }
+        val lastOne = q1.removeFirst()
+        q1 = q2
+        return lastOne
+    }
+
+    fun top(): Int {
+        var q2 = java.util.ArrayDeque<Int>()
+        while (q1.size > 1) {
+            val head = q1.removeFirst()
+            q2.add(head)
+        }
+        val lastOne = q1.removeFirst()
+        q2.add(lastOne)
+        q1 = q2
+        return lastOne
+    }
+
+    fun empty(): Boolean {
+        return q1.size == 0
+    }
+}
