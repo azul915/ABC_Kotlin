@@ -65,3 +65,35 @@ class MyStack {
         return q1.size == 0
     }
 }
+
+fun isSubsequence(s: String, t: String): Boolean {
+    if (s.isEmpty()) return true
+
+    var si = 0
+    var ti = 0
+    while (si < s.length && ti < t.length) {
+        if (s[si] == t[ti]) {
+            si++
+        }
+        ti++
+
+        if (si == s.length) return true
+    }
+    return false
+}
+
+fun climbStairs(n: Int): Int {
+    if (n == 1) return 1
+    if (n == 2) return 2
+    var l = 1
+    var m = 2
+    var cnt = 2
+    var acm = 0
+    while (cnt > n) {
+        acm = l + m
+        l = m
+        m = acm
+        cnt++
+    }
+    return acm
+}
