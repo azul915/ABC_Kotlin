@@ -112,3 +112,18 @@ fun findJudge(n: Int, trust: Array<IntArray>): Int {
     }
     return -1
 }
+
+fun isValid(s: String): Boolean {
+    val bracket = mapOf<Char, Char>(')' to '(', ']' to '[', '}' to '{')
+    val stack = mutableListOf<Char>()
+    for (char in s) {
+        if (char in bracket.values) {
+            stack.add(char)
+        } else if (stack.isNotEmpty() && bracket[char] == stack.last()) {
+            stack.removeAt(stack.lastIndex)
+        } else {
+            return false
+        }
+    }
+    return stack.size < 1
+}
