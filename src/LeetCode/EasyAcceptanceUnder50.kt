@@ -97,3 +97,22 @@ fun climbStairs(n: Int): Int {
     }
     return acm
 }
+
+fun findJudge(n: Int, trust: Array<IntArray>): Int {
+    var subject = mutableMapOf<Int, Int>()
+    var trusted = mutableMapOf<Int, Int>()
+    for (s in 1..n) {
+        subject[s] = 0
+        trusted[s] = 0
+    }
+    for (t in trust) {
+        val subj = t[0]
+        val obj = t[1]
+        subject[subj] = (subject[subj] ?: 0) + 1
+        trusted[obj] = (trusted[obj] ?: 0) + 1
+    }
+    for (i in 1..n) {
+        if (subject[i] == 0 && trusted[i] == n - 1) return i
+    }
+    return -1
+}
