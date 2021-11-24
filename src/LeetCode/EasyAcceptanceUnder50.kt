@@ -131,3 +131,14 @@ fun isValid(s: String): Boolean {
 fun rotateString(s: String, goal: String): Boolean {
     return s.length == goal.length && (s + s).contains(goal)
 }
+
+fun rotateStringAnotherAnswer(s: String, goal: String): Boolean {
+    if (s.length != goal.length) return false
+    val b = StringBuilder(s)
+    for (char in s) {
+        b.deleteCharAt(0)
+        b.append(char)
+        if (b.toString().contains(goal)) return true
+    }
+    return false
+}
