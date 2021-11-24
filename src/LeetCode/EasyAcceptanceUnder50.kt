@@ -127,3 +127,7 @@ fun isValid(s: String): Boolean {
     }
     return stack.size < 1
 }
+
+fun rotateString(s: String, goal: String): Boolean {
+    return s.length == goal.length && (s + s).contains(goal)
+}
