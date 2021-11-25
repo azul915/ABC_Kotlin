@@ -1,5 +1,7 @@
 package LeetCode
 
+import kotlin.math.min
+
 fun test(): String = "EasyAcceptanceUnder50"
 
 fun twoSum(nums: IntArray, target: Int): IntArray {
@@ -138,7 +140,23 @@ fun rotateStringAnotherAnswer(s: String, goal: String): Boolean {
     for (char in s) {
         b.deleteCharAt(0)
         b.append(char)
-        if (b.toString().contains(goal)) return true
+        if (b.toString() == goal) return true
     }
     return false
+}
+
+fun reverseStr(s: String, k: Int): String {
+    var sm = s.toMutableList()
+    for (start in s.indices step 2*k) {
+        var left = start
+        var right = min(start + k - 1 ,s.length - 1)
+        while (left < right) {
+            val tmp = sm[left]
+            sm[left] = sm[right]
+            sm[right] = tmp
+            right--
+            left++
+        }
+    }
+    return sm.joinToString("")
 }
