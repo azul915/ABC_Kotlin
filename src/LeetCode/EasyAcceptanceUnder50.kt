@@ -160,3 +160,26 @@ fun reverseStr(s: String, k: Int): String {
     }
     return sm.joinToString("")
 }
+
+fun readBinaryWatch(turnedOn: Int): List<String> {
+    var answer = mutableListOf<String>()
+
+    fun bitCount(num: Int): Int {
+        var tmp = num
+        var cnt = 0
+        while (tmp > 0) {
+            cnt += tmp % 2
+            tmp /= 2
+        }
+        return cnt
+    }
+
+    for (h in 0..11) {
+        for (m in 0..59) {
+            if (bitCount(h) + bitCount(m) == turnedOn) {
+                answer.add("$h:${if (m < 10) "0$m" else "$m"}")
+            }
+        }
+    }
+    return answer
+}
