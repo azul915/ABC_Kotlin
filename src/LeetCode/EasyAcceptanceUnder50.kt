@@ -183,3 +183,37 @@ fun readBinaryWatch(turnedOn: Int): List<String> {
     }
     return answer
 }
+
+fun validPath(n: Int, edges: Array<IntArray>, start: Int, end: Int): Boolean {
+    var dests = mutableMapOf<Int, MutableList<Int>>()
+    var visited = mutableSetOf<Int>()
+
+    for (edge in edges) {
+        val from = edge[0]
+        val to = edge[1]
+        dests[from]?.let {
+            it.add(to)
+        } ?: run {
+            dests[from] = mutableListOf(to)
+        }
+        dests[to]?.let {
+            it.add(from)
+        } ?: run {
+            dests[to] = mutableListOf(from)
+        }
+    }
+
+    fun dfs(node: Int): Boolean {
+        visited.add(node)
+        if (node == end) return true
+        for (child in dests[node]!!) {
+            if (child !in visited && dfs(child)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    return dfs(start)
+
+}
