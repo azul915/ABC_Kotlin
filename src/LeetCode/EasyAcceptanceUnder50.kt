@@ -217,3 +217,13 @@ fun validPath(n: Int, edges: Array<IntArray>, start: Int, end: Int): Boolean {
     return dfs(start)
 
 }
+
+fun pivotIndex(nums: IntArray): Int {
+    val numsSum = nums.sum()
+    var leftSum = 0
+    for (i in nums.indices) {
+        if (leftSum == numsSum - leftSum - nums[i]) return i
+        leftSum += nums[i]
+    }
+    return -1
+}
