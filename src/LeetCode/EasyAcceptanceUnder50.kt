@@ -1,5 +1,6 @@
 package LeetCode
 
+import kotlin.math.max
 import kotlin.math.min
 
 fun test(): String = "EasyAcceptanceUnder50"
@@ -226,4 +227,14 @@ fun pivotIndex(nums: IntArray): Int {
         leftSum += nums[i]
     }
     return -1
+}
+
+fun maxSubArray(nums: IntArray): Int {
+    val ns = nums.toMutableList()
+    var max = ns[0]
+    for (i in 1..ns.lastIndex) {
+        ns[i] = max(ns[i - 1] + ns[i], ns[i])
+        max = max(ns[i], max)
+    }
+    return max
 }
