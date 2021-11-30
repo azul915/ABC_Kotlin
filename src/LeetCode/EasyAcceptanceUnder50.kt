@@ -289,3 +289,32 @@ fun addBinary(a: String, b: String): String {
     return if (ansArray[0] == 0) ansArray.slice(1..ansArray.lastIndex).joinToString("") else ansArray.joinToString("")
     // return java.math.BigInteger(a, 2).add(java.math.BigInteger(b, 2)).toString(2)
 }
+
+class MinStack {
+
+    var stack = mutableListOf<Int>()
+    var min = Int.MAX_VALUE
+
+    fun push(`val`: Int) {
+       if (`val` < min) min = `val`
+        stack.add(`val`)
+    }
+
+    fun pop() {
+        stack.removeAt(stack.lastIndex)
+        stack.minOrNull()?.let { // stack.min()?.let {
+            min = it
+        } ?: run {
+            min = Int.MAX_VALUE
+        }
+    }
+
+    fun top(): Int {
+        return stack.last()
+    }
+
+    @JvmName("getMin1")
+    fun getMin(): Int {
+        return min
+    }
+}
