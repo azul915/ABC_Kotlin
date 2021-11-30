@@ -238,3 +238,54 @@ fun maxSubArray(nums: IntArray): Int {
     }
     return max
 }
+
+fun addBinary(a: String, b: String): String {
+
+    val maxLength = max(a.length, b.length) + 1
+    val ansArray = Array<Int>(maxLength) { 0 }
+    var carried = 0
+    for (dist in 1..maxLength) {
+        val aidx = a.length - dist
+        val bidx = b.length - dist
+        val degitA = if (aidx < 0) '0' else a[aidx]
+        val degitB = if (bidx < 0) '0' else b[bidx]
+        when {
+            degitA == '0' && degitB == '0' -> {
+                if (carried == 0) {
+                    ansArray[ansArray.size - dist] = 0
+                } else {
+                    ansArray[ansArray.size - dist] = 1
+                    carried = 0
+                }
+            }
+            degitA == '0' && degitB == '1' -> {
+                if (carried == 0) {
+                    ansArray[ansArray.size - dist] = 1
+                } else {
+                    ansArray[ansArray.size - dist] = 0
+                    carried = 1
+                }
+            }
+            degitA == '1' && degitB == '0' -> {
+                if (carried == 0) {
+                    ansArray[ansArray.size - dist] = 1
+                } else {
+                    ansArray[ansArray.size - dist] = 0
+                    carried = 1
+                }
+            }
+            degitA == '1' && degitB == '1' -> {
+                if (carried == 0) {
+                    ansArray[ansArray.size - dist] = 0
+                    carried = 1
+                } else {
+                    ansArray[ansArray.size - dist] = 1
+                    carried = 1
+                }
+            }
+        }
+    }
+
+    return if (ansArray[0] == 0) ansArray.slice(1..ansArray.lastIndex).joinToString("") else ansArray.joinToString("")
+    // return java.math.BigInteger(a, 2).add(java.math.BigInteger(b, 2)).toString(2)
+}
