@@ -351,8 +351,8 @@ fun secondHighest(s: String): Int {
     var largest = -1
     var second = -2
 
-    for (degit in s) {
-        degit.toString().toIntOrNull()?.let {
+    for (digit in s) {
+        digit.toString().toIntOrNull()?.let {
             when {
                 it > largest -> {
                     second = largest
