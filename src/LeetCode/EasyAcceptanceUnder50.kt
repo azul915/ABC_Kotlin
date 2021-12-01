@@ -368,3 +368,9 @@ fun secondHighest(s: String): Int {
     }
     return if (largest == -1 || second = -2) -1 else second
 }
+
+fun secondHighestAnother(s: String): Int {
+    val ss = s.filter { it in '0'..'9' }.map { it.toString().toInt() }.toSet()
+    if (ss.size < 2) return -1
+    return ss.sortedDescending()[1]
+}
