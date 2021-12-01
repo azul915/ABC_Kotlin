@@ -346,3 +346,25 @@ class MinStackAnother {
         return stack.last().second
     }
 }
+
+fun secondHighest(s: String): Int {
+    var largest = -1
+    var second = -2
+
+    for (degit in s) {
+        degit.toString().toIntOrNull()?.let {
+            when {
+                it > largest -> {
+                    second = largest
+                    largest = it
+                }
+                it == largest -> {}
+                it in second..largest -> {
+                    second = it
+                }
+                else -> {}
+            }
+        }
+    }
+    return if (largest == -1 || second = -2) -1 else second
+}
