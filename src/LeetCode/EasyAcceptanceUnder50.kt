@@ -318,3 +318,31 @@ class MinStack {
         return min
     }
 }
+
+class MinStackAnother {
+    var stack = mutableListOf<Pair<Int, Int>>()
+
+    fun push(`val`: Int) {
+
+        val min = if (stack.isEmpty()) `val` else stack.last().second
+
+        if (`val` < min) {
+            stack.add(Pair(`val`, `val`))
+        } else {
+            stack.add(Pair(`val`, min))
+        }
+    }
+
+    fun pop() {
+        stack.removeAt(stack.lastIndex)
+    }
+    
+    fun top(): Int {
+        return stack.last().first
+    }
+
+    @JvmName("getMin2")
+    fun getMin(): Int {
+        return stack.last().second
+    }
+}
