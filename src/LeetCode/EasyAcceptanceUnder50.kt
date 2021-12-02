@@ -391,7 +391,7 @@ fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
 //        pointerB?.next?.let {
 //            pointerB = it
 //        } ?: pointerB = headA
-        
+
         if (pointerA == null) {
             pointerA = headB
         } else {
@@ -405,4 +405,21 @@ fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
         }
     }
     return pointerA
+}
+
+fun getIntersectionNodeAnother(headA: ListNode?, headB: ListNode?): ListNode? {
+    val visited = mutableSetOf<ListNode?>()
+    var pointerA = headA
+    var pointerB = headB
+
+    while (pointerA != null) {
+        visited.add(pointerA)
+        pointerA = pointerA?.next
+    }
+
+    while (pointerB != null) {
+        if (visited.contains(pointerB)) return pointerB
+        pointerB = pointerB?.next
+    }
+    return null
 }
