@@ -2,6 +2,7 @@ package LeetCode
 
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.test.assertTrue
 
 fun test(): String = "EasyAcceptanceUnder50"
 
@@ -373,4 +374,35 @@ fun secondHighestAnother(s: String): Int {
     val ss = s.filter { it in '0'..'9' }.map { it.toString().toInt() }.toSet()
     if (ss.size < 2) return -1
     return ss.sortedDescending()[1]
+}
+
+fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
+    if (headA == null || headB == null) return null
+
+    var pointerA = headA
+    var pointerB = headB
+
+    while (pointerA != pointerB) {
+
+//        pointerA?.next?.let {
+//            pointerA = it
+//        } ?: pointerA = headB
+//
+//        pointerB?.next?.let {
+//            pointerB = it
+//        } ?: pointerB = headA
+        
+        if (pointerA == null) {
+            pointerA = headB
+        } else {
+            pointerA = pointerA?.next
+        }
+
+        if (pointerB == null) {
+            pointerB = headA
+        } else {
+            pointerB = pointerB?.next
+        }
+    }
+    return pointerA
 }
