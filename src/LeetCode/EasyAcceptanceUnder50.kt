@@ -86,22 +86,6 @@ fun isSubsequence(s: String, t: String): Boolean {
 }
 
 fun climbStairs(n: Int): Int {
-    if (n == 1) return 1
-    if (n == 2) return 2
-    var l = 1
-    var m = 2
-    var cnt = 2
-    var acm = 0
-    while (cnt > n) {
-        acm = l + m
-        l = m
-        m = acm
-        cnt++
-    }
-    return acm
-}
-
-fun climbStairsAnother(n: Int): Int {
     if (n < 3) return n
 
     var array = Array<Int>(n + 1) { if (it < 3) it else 0 }
@@ -111,7 +95,6 @@ fun climbStairsAnother(n: Int): Int {
     }
 
     return array[n]
-
 }
 
 fun findJudge(n: Int, trust: Array<IntArray>): Int {
