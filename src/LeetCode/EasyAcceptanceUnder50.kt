@@ -101,6 +101,19 @@ fun climbStairs(n: Int): Int {
     return acm
 }
 
+fun climbStairsAnother(n: Int): Int {
+    if (n < 3) return n
+
+    var array = Array<Int>(n + 1) { if (it < 3) it else 0 }
+
+    for (i in 3..n) {
+        array[i] = array[i - 1] + array[i - 2]
+    }
+
+    return array[n]
+
+}
+
 fun findJudge(n: Int, trust: Array<IntArray>): Int {
     var subject = Array(n + 1) { 0 }
     var trusted = Array(n + 1) { 0 }
@@ -359,14 +372,14 @@ fun secondHighest(s: String): Int {
                     largest = it
                 }
                 it == largest -> {}
-                it in second..largest -> {
+                it in second until largest -> {
                     second = it
                 }
                 else -> {}
             }
         }
     }
-    return if (largest == -1 || second = -2) -1 else second
+    return if (largest == -1 || second == -2) -1 else second
 }
 
 fun secondHighestAnother(s: String): Int {
