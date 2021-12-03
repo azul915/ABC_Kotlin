@@ -2,7 +2,6 @@ package LeetCode
 
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.test.assertTrue
 
 fun test(): String = "EasyAcceptanceUnder50"
 
