@@ -418,3 +418,14 @@ fun getIntersectionNodeAnother(headA: ListNode?, headB: ListNode?): ListNode? {
     }
     return null
 }
+
+fun removeDuplicates(nums: IntArray) {
+    var now = 0
+    for (idx in 1..nums.lastIndex) {
+        if (nums[now] < nums[idx]) {
+            now++
+            mums[now] = nums[idx]
+        }
+    }
+    return now + 1
+}
