@@ -419,13 +419,42 @@ fun getIntersectionNodeAnother(headA: ListNode?, headB: ListNode?): ListNode? {
     return null
 }
 
-fun removeDuplicates(nums: IntArray) {
+fun removeDuplicates(nums: IntArray): Int {
     var now = 0
     for (idx in 1..nums.lastIndex) {
         if (nums[now] < nums[idx]) {
             now++
-            mums[now] = nums[idx]
+            nums[now] = nums[idx]
         }
     }
     return now + 1
+}
+
+fun guessNumber(n: Int, pick: Int): Int {
+
+    var low = 1
+    var high = n
+
+    fun guess(n: Int, pick: Int): Int {
+        return when {
+            n < pick -> -1
+            n > pick -> 1
+            else -> 0
+        }
+    }
+
+    while (low <= high) {
+        val middle = low + ((high - low) / 2)
+        val res = guess(middle, pick)
+        if (res == 0) {
+            return middle
+        } else if (res < 0) {
+            high = middle - 1
+        } else { // ans > 0
+            low = middle + 1
+        }
+    }
+
+    return -1
+
 }
