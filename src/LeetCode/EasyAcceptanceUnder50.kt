@@ -458,3 +458,19 @@ fun guessNumber(n: Int, pick: Int): Int {
     return -1
 
 }
+
+fun findLengthOfLCIS(nums: IntArray): Int {
+
+    var subSeqLen = 1
+    var tmp = 1
+    for (idx in 1..nums.lastIndex) {
+        val diff = nums[idx] - nums[idx - 1]
+        if (diff > 0) {
+            tmp++
+            if (subSeqLen < tmp) subSeqLen = tmp
+        } else {
+            tmp = 1
+        }
+    }
+    return subSeqLen
+}
