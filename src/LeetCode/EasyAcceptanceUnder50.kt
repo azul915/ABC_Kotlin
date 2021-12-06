@@ -1,5 +1,6 @@
 package LeetCode
 
+import java.math.BigDecimal
 import kotlin.math.max
 import kotlin.math.min
 
@@ -473,4 +474,15 @@ fun findLengthOfLCIS(nums: IntArray): Int {
         }
     }
     return subSeqLen
+}
+
+fun prefixedsDivBy5(nums: IntArray): List<Boolean> {
+
+    val list = mutableListOf<Boolean>()
+    var num = 0
+    for (n in nums) {
+        num = (num *2 +n) %5
+        list.add(num %5 == 0)
+    }
+    return list
 }
