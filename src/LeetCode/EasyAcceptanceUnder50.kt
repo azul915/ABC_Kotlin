@@ -486,3 +486,25 @@ fun prefixedsDivBy5(nums: IntArray): List<Boolean> {
     }
     return list
 }
+
+fun backspaceCompare(s: String, t: String): Boolean {
+    val sStack = mutableListOf<Char>()
+    val tStack = mutableListOf<Char>()
+    for (ch in s) {
+        if (ch == '#') {
+            if (sStack.size > 0) sStack.removeAt(sStack.lastIndex)
+            continue
+        }
+        sStack.add(ch)
+    }
+
+    for (ch in t) {
+        if (ch == '#') {
+            if (tStack.size > 0) tStack.removeAt(tStack.lastIndex)
+            continue
+        }
+        tStack.add(ch)
+    }
+
+    return sStack == tStack
+}
