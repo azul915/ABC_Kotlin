@@ -1,8 +1,10 @@
 package LeetCode
 
 import java.math.BigDecimal
+import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 
 fun test(): String = "EasyAcceptanceUnder50"
 
@@ -501,6 +503,19 @@ fun backspaceCompare(s: String, t: String): Boolean {
         }
         return stack.joinToString("")
     }
-    
+
     return inputResult(s) == inputResult(t)
+}
+
+fun convertToBase7(num: Int): String {
+    var target = num
+    var base7List = mutableListOf<Int>
+
+    do {
+        val remainder = if (target /7 == 0) target %7 else abs(target %7)
+        base7List.add(remainder)
+        target = target /7
+    } while (target != 0)
+
+    return base7List.reversed().joinToString("")
 }
