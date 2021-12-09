@@ -509,7 +509,7 @@ fun backspaceCompare(s: String, t: String): Boolean {
 
 fun convertToBase7(num: Int): String {
     var target = num
-    var base7List = mutableListOf<Int>
+    var base7List = mutableListOf<Int>()
 
     do {
         val remainder = if (target /7 == 0) target %7 else abs(target %7)
@@ -526,4 +526,56 @@ fun convertToBase7Another(num: Int): String {
     if (num < 7) return "${convertToBase7Another(num)}"
     return "${convertToBase7Another(num /7)}${num %7}"
 
+}
+
+fun checkRecord(s: String): Boolean {
+
+    val attendanceList = MutableList<Any>(s.length) { s[it] }
+    var absenses = 0
+    for (idx in attendanceList.indices) {
+
+        when(idx) {
+            0 -> {
+                when(attendanceList[idx]) {
+                    'A' -> {
+                        absenses++
+                        attendanceList[idx] = 0
+                    }
+                    'L' -> {
+                        attendanceList[idx] = 1
+                    }
+                    else -> {
+                        attendanceList[idx] = 0
+                    }
+                }
+            }
+            else -> { // idx > 0
+                when(attendanceList[idx]) {
+                    'A' -> {
+                        absenses++
+                        attendanceList[idx] = 0
+                    }
+                    'L' -> {
+                        val yesterday = attendanceList[idx-1] as Int
+                        attendanceList[idx] = yesterday +1
+                    }
+                    else -> {
+                        attendanceList[idx] = 0
+                    }
+                }
+            }
+        }
+
+        if (absenses >= 2) return false
+        val today = attendanceList[idx] as Int
+        if (today > 2) return false
+
+    }
+
+    return true
+
+}
+
+fun checkRecordAnother(s: String) {
+    return s.filter { it == 'A' }.length < 2 && "LLL" !in s
 }
