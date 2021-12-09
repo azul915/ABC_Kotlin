@@ -519,3 +519,11 @@ fun convertToBase7(num: Int): String {
 
     return base7List.reversed().joinToString("")
 }
+
+fun convertToBase7Another(num: Int): String {
+
+    if (num < 0) return "-${convertToBase7Another(-num)}"
+    if (num < 7) return "${convertToBase7Another(num)}"
+    return "${convertToBase7Another(num /7)}${num %7}"
+
+}
