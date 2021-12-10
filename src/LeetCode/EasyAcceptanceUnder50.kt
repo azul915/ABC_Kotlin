@@ -576,6 +576,48 @@ fun checkRecord(s: String): Boolean {
 
 }
 
-fun checkRecordAnother(s: String) {
+fun checkRecordAnother(s: String): Boolean {
     return s.filter { it == 'A' }.length < 2 && "LLL" !in s
+}
+
+fun maximumProduct(nums: IntArray): Int {
+
+    val sorted = nums.sorted()
+    return max(sorted[nums.lastIndex -2] * sorted[nums.lastIndex -1] * sorted[nums.lastIndex], sorted[0] * sorted[1] * sorted[nums.lastIndex])
+}
+
+fun maxiumProductAnother(nums: IntArray): Int {
+
+    var min1 = Int.MAX_VALUE
+    var min2 = Int.MAX_VALUE
+    var max1 = Int.MIN_VALUE
+    var max2 = Int.MIN_VALUE
+    var max3 = Int.MIN_VALUE
+
+    for (num in nums) {
+        when {
+            num <= min1 -> {
+                min2 = min1
+                min1 = num
+            }
+            num <= min2 -> {
+                min2 = num
+            }
+        }
+        when {
+            num >= max3 -> {
+                max1 = max2
+                max2 = max3
+                max3 = num
+            }
+            num >= max2 -> {
+                max1 = max2
+                max2 = num
+            }
+            num >= max1 -> {
+                max1 = num
+            }
+        }
+    }
+    return max(min1 * min2 * max1, max1 * max2 * max3)
 }
