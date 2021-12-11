@@ -641,9 +641,7 @@ fun reverseVowels(s: String): String {
     val sca = s.toCharArray()
     while (left < right) {
         if (sca[left] in vowels && sca[right] in vowels) {
-            val tmp = sca[left]
-            sca[left] = sca[right]
-            sca[right] = tmp
+            sca.swap(left, right)
             left++
             right--
         }
@@ -652,3 +650,10 @@ fun reverseVowels(s: String): String {
     }
     return sca.joinToString("")
 }
+
+fun CharArray.swap(index1: Int, index2: Int) {
+    val tmp = this[index1]
+    this[index1] = this[index2]
+    this[index2] = tmp
+}
+
