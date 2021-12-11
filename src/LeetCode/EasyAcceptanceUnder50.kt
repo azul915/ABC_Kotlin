@@ -1,10 +1,13 @@
 package LeetCode
 
-import java.math.BigDecimal
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.pow
+
 
 fun test(): String = "EasyAcceptanceUnder50"
 
@@ -620,4 +623,12 @@ fun maxiumProductAnother(nums: IntArray): Int {
         }
     }
     return max(min1 * min2 * max1, max1 * max2 * max3)
+}
+
+fun daysBetweenDates(date1: String, date2: String): Int {
+
+    val ld1 = LocalDate.parse(date1, DateTimeFormatter.ISO_DATE)
+    val ld2 = LocalDate.parse(date2, DateTimeFormatter.ISO_DATE)
+    val diff = ChronoUnit.DAYS.between(ld1, ld2)
+    return abs(diff.toInt())
 }
