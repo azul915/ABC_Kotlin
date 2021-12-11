@@ -632,3 +632,23 @@ fun daysBetweenDates(date1: String, date2: String): Int {
     val diff = ChronoUnit.DAYS.between(ld1, ld2)
     return abs(diff.toInt())
 }
+
+fun reverseVowels(s: String): String {
+
+    var left = 0
+    var right = s.lastIndex
+    val vowels = setOf<Char>('a','e','i','o','u','A','E','I','O','U')
+    val sca = s.toCharArray()
+    while (left < right) {
+        if (sca[left] in vowels && sca[right] in vowels) {
+            val tmp = sca[left]
+            sca[left] = sca[right]
+            sca[right] = tmp
+            left++
+            right--
+        }
+        if (sca[left] !in vowels) left++
+        if (sca[right] !in vowels) right--
+    }
+    return sca.joinToString("")
+}
