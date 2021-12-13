@@ -657,3 +657,14 @@ fun CharArray.swap(index1: Int, index2: Int) {
     this[index2] = tmp
 }
 
+fun reverseBits(n: Int): Int {
+    var reversed = 0
+    var cn = n
+    repeat(32) {
+        val bottomBit = cn and 1
+        reversed = reversed shl 1
+        reversed = reversed or bottomBit
+        cn = cn shr 1
+    }
+    return reversed
+}
