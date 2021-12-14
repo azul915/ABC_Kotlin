@@ -668,3 +668,15 @@ fun reverseBits(n: Int): Int {
     }
     return reversed
 }
+
+fun isOneBitCharacter(bits: IntArray): Boolean {
+
+    var idx = 0
+    while (idx < bits.lastIndex) {
+        idx = when (bits[idx]) {
+            0 -> idx +1
+            else -> idx +2 // if (bits[idx] == 1)
+        }
+    }
+    return idx == bits.lastIndex
+}
