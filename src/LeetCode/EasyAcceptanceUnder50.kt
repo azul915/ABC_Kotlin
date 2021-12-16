@@ -688,15 +688,27 @@ class TreeNode(var `val`: Int) {
 
 fun findMode(root: TreeNode?): IntArray {
 
-    val visited = mutableListOf<Int>()
-
+    var visited = mutableMapOf<Int, Int>()
     fun dfs(node: TreeNode?) {
-        node?.`val`?.let { visited.add(it) } ?: run { return }
+        node?.`val`?.let {
+           if (visited.containsKey(it)) {
+               val v = visited[it] ?: return
+                visited[it] = v +1
+           } else {
+               visited[it] = 1
+           }
+        } ?: run { return }
         node?.left?.let { dfs(it) }
         node?.right?.let { dfs(it) }
     }
 
     dfs(root)
-    val mode: Int = visited.groupingBy { it }.eachCount().maxBy { it.value }?.key ?: -1
-    return intArrayOf(mode)
+
+    val ml = mutableListOf<Int>()
+    val mfn = visited.values?.max()
+    for ((k, v) in visited) {
+        if (v == mfn) ml.add(k)
+    }
+
+    return ml.toIntArray()
 }
