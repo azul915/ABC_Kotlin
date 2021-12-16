@@ -680,3 +680,23 @@ fun isOneBitCharacter(bits: IntArray): Boolean {
     }
     return idx == bits.lastIndex
 }
+
+class TreeNode(var `val`: Int) {
+    var left: TreeNode? = null
+    var right: TreeNode? = null
+}
+
+fun findMode(root: TreeNode?): IntArray {
+
+    val visited = mutableListOf<Int>()
+
+    fun dfs(node: TreeNode?) {
+        node?.`val`?.let { visited.add(it) } ?: run { return }
+        node?.left?.let { dfs(it) }
+        node?.right?.let { dfs(it) }
+    }
+
+    dfs(root)
+    val mode: Int = visited.groupingBy { it }.eachCount().maxBy { it.value }?.key ?: -1
+    return intArrayOf(mode)
+}
