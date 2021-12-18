@@ -715,30 +715,16 @@ fun findMode(root: TreeNode?): IntArray {
 
 fun isBalanced(root: TreeNode?): Boolean {
 
-    fun dfs(node: TreeNode?, depth: Int): Int {
-        if (node?.left == null && node?.right == null) return depth
+    fun dfs(node: TreeNode?): Int {
+        if (node == null) return 0
 
-        val depInc = depth +1
-        node?.left?.let { return dfs(it, depInc) }
-        node?.right?.let { return dfs(it, depInc) }
+        val ld = dfs(node?.left)
+        val rd = dfs(node?.right)
+
+        if (ld == null || rd == null || abs(ld -rd)) return -1
+        return maxOf(ld, rd) +1
     }
 
-    return when {
-        root?.left == null && root?.right == null -> true
-        root?.left == null -> {
-            val ld = 0
-            val rd = dfs(root?.right, 1)
-            abs(ld -rd) < 2
-        }
-        root?.right == null -> {
-            val ld = dfs(root?.left, 1)
-            val rd = 0
-            abs(ld -rd) < 2
-        }
-        else -> {
-            val ld = dfs(root?.left, 1)
-            val rd = dfs(root?.right, 1)
-            abs(ld -rd) < 2
-        }
-    }
+    return dfs(root) != -1
 }
+
