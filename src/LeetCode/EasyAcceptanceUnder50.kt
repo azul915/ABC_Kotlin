@@ -713,6 +713,7 @@ fun findMode(root: TreeNode?): IntArray {
     return ml.toIntArray()
 }
 
+// happen on Exception in thread "main" java.lang.StackOverflowError
 fun isBalanced(root: TreeNode?): Boolean {
 
     fun dfs(node: TreeNode?): Int {
@@ -728,3 +729,18 @@ fun isBalanced(root: TreeNode?): Boolean {
     return dfs(root) != -1
 }
 
+fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
+
+    var cnt = 0
+    for (i in dominoes.indices) {
+        val l = dominoes[i][0]
+        val r = dominoes[i][1]
+        for (j in i+1..dominoes.lastIndex) {
+            val ll = dominoes[j][0]
+            val rr = dominoes[j][1]
+
+            if ((l == ll && r == rr) || (l == rr && r == ll)) cnt++
+        }
+    }
+    return cnt
+}
