@@ -731,16 +731,14 @@ fun isBalanced(root: TreeNode?): Boolean {
 
 fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
 
-    var cnt = 0
-    for (i in dominoes.indices) {
-        val l = dominoes[i][0]
-        val r = dominoes[i][1]
-        for (j in i+1..dominoes.lastIndex) {
-            val ll = dominoes[j][0]
-            val rr = dominoes[j][1]
+    var ans = 0
+    var count = mutableMapOf<Int, Int>()
 
-            if ((l == ll && r == rr) || (l == rr && r == ll)) cnt++
-        }
+    for (domino in dominoes) {
+        val key = minOf(domino[0], domino[1]) *10 +maxOf(domino[0], domino[1])
+        ans += count.getOrDefault(key, 0)
+        count[key] = count.getOrDefault(key, 0)+1
     }
-    return cnt
+    return ans
+
 }
