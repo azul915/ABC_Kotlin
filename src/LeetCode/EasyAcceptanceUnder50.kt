@@ -742,3 +742,16 @@ fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
     return ans
 
 }
+
+fun nextGreatestLetter(letters: CharArray, target: Char): Char {
+
+    for (char in 'a'..'z') {
+        if (char == target) {
+            for (idx in letters.indices) {
+                if (idx == letters.lastIndex) return letters[0]
+                if (target < letters[idx]) return letters[idx]
+            }
+        }
+    }
+    return Char.MAX_VALUE
+}
