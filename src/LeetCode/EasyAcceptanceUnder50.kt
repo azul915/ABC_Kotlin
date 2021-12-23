@@ -748,8 +748,8 @@ fun nextGreatestLetter(letters: CharArray, target: Char): Char {
     for (char in 'a'..'z') {
         if (char == target) {
             for (idx in letters.indices) {
+                if (char < letters[idx]) return letters[idx]
                 if (idx == letters.lastIndex) return letters[0]
-                if (target < letters[idx]) return letters[idx]
             }
         }
     }

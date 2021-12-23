@@ -1,5 +1,5 @@
 import LeetCode.*
 
 fun main() {
-    print(test())
+    println(daysBetweenDates("2019-06-29", "2019-06-30"))
 }
