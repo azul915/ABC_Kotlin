@@ -761,6 +761,9 @@ fun nextGreatestLetter(letters: CharArray, target: Char): Char {
 }
 
 fun toHex(num: Int): String {
+    // prohibited to directory solve
+    // return Integer.toHexString(num)
+
     val convMap = mapOf<Int, String>(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
     val bs = Integer.toBinaryString(num)
     val binStr = when (bs.length % 4) {
