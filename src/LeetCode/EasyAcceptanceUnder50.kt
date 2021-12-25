@@ -715,7 +715,6 @@ fun findMode(root: TreeNode?): IntArray {
     return ml.toIntArray()
 }
 
-// happen on Exception in thread "main" java.lang.StackOverflowError
 fun isBalanced(root: TreeNode?): Boolean {
 
     fun dfs(node: TreeNode?): Int {
