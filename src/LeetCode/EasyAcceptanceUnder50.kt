@@ -706,7 +706,8 @@ fun findMode(root: TreeNode?): IntArray {
     dfs(root)
 
     val ml = mutableListOf<Int>()
-    val mfn = visited.values?.max()
+//    val mfn = visited.values?.max()
+    val mfn = visited.values?.maxOrNull()
     for ((k, v) in visited) {
         if (v == mfn) ml.add(k)
     }
@@ -723,7 +724,7 @@ fun isBalanced(root: TreeNode?): Boolean {
         val ld = dfs(node?.left)
         val rd = dfs(node?.right)
 
-        if (ld == null || rd == null || abs(ld -rd)) return -1
+        if (ld == null || rd == null || abs(ld -rd) > 1) return -1
         return maxOf(ld, rd) +1
     }
 
