@@ -7,6 +7,7 @@ import java.time.temporal.ChronoUnit
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 
 
 fun test(): String = "EasyAcceptanceUnder50"
@@ -757,4 +758,30 @@ fun nextGreatestLetter(letters: CharArray, target: Char): Char {
         }
     }
     return letters[left % letters.size]
+}
+
+fun toHex(num: Int): String {
+    val convMap = mapOf<Int, String>(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
+    val bs = Integer.toBinaryString(num)
+    val binStr = when (bs.length % 4) {
+        0 -> bs
+        1 -> "000$bs"
+        2 -> "00$bs"
+        else -> "0$bs"
+    }
+    var ans = ""
+    var acc = 0
+
+    for (idx in binStr.lastIndex downTo 0) {
+
+        val tmp = binStr[idx].toString().toDouble()*2.0.pow((binStr.lastIndex -idx) %4)
+        acc += tmp.toInt()
+        if ((binStr.lastIndex -idx) %4 == 3) {
+
+            val degit = if (acc > 9) convMap[acc] else acc.toString()
+            ans = "$degit$ans"
+            acc = 0
+        }
+    }
+    return ans
 }
