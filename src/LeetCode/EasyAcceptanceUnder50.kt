@@ -724,7 +724,7 @@ fun isBalanced(root: TreeNode?): Boolean {
         val ld = dfs(node?.left)
         val rd = dfs(node?.right)
 
-        if (ld == null || rd == null || abs(ld -rd) > 1) return -1
+        if (ld == -1 || rd == -1 || abs(ld -rd) > 1) return -1
         return maxOf(ld, rd) +1
     }
 
