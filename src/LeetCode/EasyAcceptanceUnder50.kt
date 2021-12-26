@@ -788,3 +788,16 @@ fun toHex(num: Int): String {
     }
     return ans
 }
+
+fun check(nums: IntArray): Boolean {
+
+    var cnt = 0
+    for (idx in 1..nums.lastIndex) {
+        if (nums[idx] < nums[idx-1]) {
+            cnt++
+            if (1 < cnt) return false
+        }
+        if (idx == nums.lastIndex && 0 < cnt && nums[0] < nums[idx]) return false
+    }
+    return true
+}
