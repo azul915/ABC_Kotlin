@@ -789,6 +789,50 @@ fun toHex(num: Int): String {
     return ans
 }
 
+fun toHexAnother(num: Int): String {
+    return if (num < 0) {
+        forNeg(num)
+    } else {
+        forPos(num)
+    }
+}
+
+fun forPos(pos: Int): String {
+    val convMap = mapOf<Int, String>(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
+    var sb = StringBuilder()
+    var cp = pos
+    while (0 < cp) {
+        val surplus = if (9 < cp % 16) {
+            convMap[cp % 16]
+        } else {
+            (cp % 16).toString()
+        }
+        sb.insert(0, surplus)
+        cp /= 16
+    }
+    return sb.toString()
+}
+
+fun forNeg(neg: Int): String {
+    val convMap = mapOf<Int, String>(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
+    var sb = StringBuilder()
+    val cu = abs(neg).toUInt()
+
+    val etc = cu.inv() +1.toUInt()
+    var cn = etc.toString().toLong()
+
+    while (0.toLong() < cn) {
+        val surplus = if (9.toLong() < cn % 16.toLong()) {
+            convMap[(cn % 16.toLong()).toInt()]
+        } else {
+            (cn.toLong() % 16).toString()
+        }
+        sb.insert(0, cn.toLong())
+        cn /= 16.toLong()
+    }
+    return sb.toString()
+}
+
 fun check(nums: IntArray): Boolean {
 
     var cnt = 0
