@@ -789,46 +789,47 @@ fun toHex(num: Int): String {
     return ans
 }
 
-val convMap = mapOf<Int, String>(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
-
 fun toHexAnother(num: Int): String {
-    return if (num < 0) {
-        forNeg(num)
-    } else {
-        forPos(num)
-    }
-}
+    val convMap = mapOf<Int, String>(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
 
-fun forPos(pos: Int): String {
-    var sb = StringBuilder()
-    var cp = pos
-    while (0 < cp) {
-        val surplus = if (9 < cp % 16) {
-            convMap[cp % 16]
-        } else {
-            (cp % 16).toString()
+    fun forNeg(neg: Int): String {
+        var sb = StringBuilder()
+        val etc = abs(neg).toUInt().inv() +1.toUInt()
+        var cn = etc.toString().toLong()
+
+        while (0 < cn) {
+            val surplus = if (9 < cn%16) {
+                convMap[(cn%16).toInt()]
+            } else {
+                (cn%16).toString()
+            }
+            sb.insert(0, surplus)
+            cn /= 16
         }
-        sb.insert(0, surplus)
-        cp /= 16
+        return sb.toString()
     }
-    return sb.toString()
-}
 
-fun forNeg(neg: Int): String {
-    var sb = StringBuilder()
-    val etc = abs(neg).toUInt().inv() +1.toUInt()
-    var cn = etc.toString().toLong()
+    fun forPos(pos: Int): String {
+        var sb = StringBuilder()
+        var cp = pos
 
-    while (0 < cn) {
-        val surplus = if (9 < cn % 16) {
-            convMap[(cn % 16).toInt()]
-        } else {
-            (cn % 16).toString()
+        while (0 < cp) {
+            val surplus = if (9 < cp%16) {
+                convMap[cp%16]
+            } else {
+                (cp%16).toString()
+            }
+            sb.insert(0, surplus)
+            cp /= 16
         }
-        sb.insert(0, surplus)
-        cn /= 16
+        return sb.toString()
     }
-    return sb.toString()
+
+    return when {
+        num < 0 -> forNeg(num)
+        num == 0 -> "0"
+        else -> forPos(num)
+    }
 }
 
 fun check(nums: IntArray): Boolean {
