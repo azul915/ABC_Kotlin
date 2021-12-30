@@ -789,6 +789,8 @@ fun toHex(num: Int): String {
     return ans
 }
 
+val convMap = mapOf<Int, String>(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
+
 fun toHexAnother(num: Int): String {
     return if (num < 0) {
         forNeg(num)
@@ -798,7 +800,6 @@ fun toHexAnother(num: Int): String {
 }
 
 fun forPos(pos: Int): String {
-    val convMap = mapOf<Int, String>(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
     var sb = StringBuilder()
     var cp = pos
     while (0 < cp) {
@@ -814,21 +815,18 @@ fun forPos(pos: Int): String {
 }
 
 fun forNeg(neg: Int): String {
-    val convMap = mapOf<Int, String>(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
     var sb = StringBuilder()
-    val cu = abs(neg).toUInt()
-
-    val etc = cu.inv() +1.toUInt()
+    val etc = abs(neg).toUInt().inv() +1.toUInt()
     var cn = etc.toString().toLong()
 
-    while (0.toLong() < cn) {
-        val surplus = if (9.toLong() < cn % 16.toLong()) {
-            convMap[(cn % 16.toLong()).toInt()]
+    while (0 < cn) {
+        val surplus = if (9 < cn % 16) {
+            convMap[(cn % 16).toInt()]
         } else {
-            (cn.toLong() % 16).toString()
+            (cn % 16).toString()
         }
-        sb.insert(0, cn.toLong())
-        cn /= 16.toLong()
+        sb.insert(0, surplus)
+        cn /= 16
     }
     return sb.toString()
 }
