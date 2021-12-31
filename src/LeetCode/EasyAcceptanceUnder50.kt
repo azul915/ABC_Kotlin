@@ -855,3 +855,13 @@ fun checkAnother(nums: IntArray): Boolean {
 
     return cnt < 2
 }
+
+fun areAlmostEqual(s1: String, s2: String): Boolean {
+    val list = mutableListOf<Int>()
+    for (idx in s1.indices) {
+        if (s1[idx] != s2[idx]) list.add(idx)
+    }
+    if (list.size == 0) return true
+    if (list.size != 2) return false
+    return s1[list[0]] == s2[list[1]] && s1[list[1]] == s2[list[0]]
+}
