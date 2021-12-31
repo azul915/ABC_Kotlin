@@ -844,3 +844,14 @@ fun check(nums: IntArray): Boolean {
     }
     return true
 }
+
+fun checkAnother(nums: IntArray): Boolean {
+
+    var cnt = 0
+    for (idx in 1..nums.lastIndex) {
+        if (nums[idx] < nums[idx-1]) cnt++
+    }
+    if (nums[0] < nums[nums.lastIndex]) cnt++
+
+    return cnt < 2
+}
