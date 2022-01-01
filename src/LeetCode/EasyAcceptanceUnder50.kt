@@ -875,3 +875,34 @@ fun mostCommonWord(paragraph: String, banned: Array<String>): String {
         .maxByOrNull { it.value }?.key
     return mfe?.let { it } ?: ""
 }
+
+fun canThreePartsEqualSum(arr: IntArray): Boolean {
+
+    fun simulate(i: Int, j: Int): Boolean {
+        var x = 0
+        var y = 0
+        var z = 0
+        var ga = -1
+        var gb = -1
+
+        for (a in 0..i) {
+            x += arr[a]
+            if (a == i) ga = a
+        }
+        for (b in ga+1..j) {
+            y += arr[b]
+            if (b == j) gb = b
+        }
+        for (c in gb+1..arr.lastIndex) z += arr[c]
+        println("x: $x, y: $y, z: $z")
+        return x == y && y == z
+    }
+
+    for (i in arr.indices) {
+        for (j in i+1 until arr.lastIndex) {
+            val result = simulate(i, j)
+            if (result) return true
+        }
+    }
+    return false
+}
