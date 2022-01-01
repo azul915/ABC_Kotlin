@@ -865,3 +865,13 @@ fun areAlmostEqual(s1: String, s2: String): Boolean {
     if (list.size != 2) return false
     return s1[list[0]] == s2[list[1]] && s1[list[1]] == s2[list[0]]
 }
+
+fun mostCommonWord(paragraph: String, banned: Array<String>): String {
+    val pl = paragraph.split(" ", ",", ".", "!", "?", ";", "'").asSequence()
+        .filterNot { it == "" }
+        .map { it.lowercase() }
+        .filterNot { it in banned }
+    val mfe = pl.groupingBy { it }.eachCount()
+        .maxByOrNull { it.value }?.key
+    return mfe?.let { it } ?: ""
+}
