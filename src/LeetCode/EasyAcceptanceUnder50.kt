@@ -881,14 +881,14 @@ fun canThreePartsEqualSum(arr: IntArray): Boolean {
     val sum = arr.sum()
     if (sum %3 != 0) return false
     val ot = sum /3
-    var partisions = 0
+    var partitions = 0
     var acc = 0
     for (idx in arr.indices) {
         acc += arr[idx]
         if (acc == ot) {
-            partisions++
+            partitions++
             acc = 0
         }
     }
-    return 2 < partisions
+    return 2 < partitions
 }
