@@ -940,3 +940,12 @@ fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
     return true
 }
+
+fun addToArrayForm(num: IntArray, k: Int): List<Int> {
+
+    var sb = StringBuilder()
+    for (n in num) sb.append(n.toString())
+    val sum = sb.toString().toBigDecimal() + k.toBigDecimal()
+    return "$sum".map { it.toString().toInt() }.toList()
+
+}
