@@ -892,3 +892,17 @@ fun canThreePartsEqualSum(arr: IntArray): Boolean {
     }
     return 2 < partitions
 }
+
+fun isPalindrome(head: ListNode?): Boolean {
+    val stack = mutableListOf<Int>()
+    var current = head
+    while (current != null) {
+        stack.add(current.`val`)
+        current = current?.next
+    }
+    val half = stack.size /2
+    for (idx in 0 until half) {
+        if (stack[idx] != stack[stack.lastIndex-idx]) return false
+    }
+    return true
+}
