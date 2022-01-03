@@ -1,5 +1,6 @@
 package LeetCode
 
+import com.sun.source.tree.Tree
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -904,5 +905,38 @@ fun isPalindrome(head: ListNode?): Boolean {
     for (idx in 0 until half) {
         if (stack[idx] != stack[stack.lastIndex-idx]) return false
     }
+    return true
+}
+
+fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
+
+    val ml = mutableListOf<Int>()
+    fun analyze(node: TreeNode?) {
+        node?.`val`?.let {
+            ml.add(it)
+        } ?: run { return }
+
+        node?.left?.let { analyze(it) }
+        node?.right?.let { analyze(it) }
+    }
+    analyze(subRoot)
+
+    val subRootVal = subRoot!!.`val`
+    var checker = mutableListOf<Int>()
+
+    fun dfs(node: TreeNode?) {
+        node?.`val`?.let {
+            if (subRootVal == it) checker.add(it)
+            for (idx in checker.indices) {
+                if (checker[idx] != ml[idx]) return
+            }
+        } ?: run { return }
+
+        node?.left?.let { dfs(it) }
+        node?.right?.let { dfs(it) }
+    }
+
+    dfs(root)
+
     return true
 }
