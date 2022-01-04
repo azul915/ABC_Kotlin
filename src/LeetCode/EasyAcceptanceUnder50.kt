@@ -910,44 +910,25 @@ fun isPalindrome(head: ListNode?): Boolean {
 
 fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
-    val ml = mutableListOf<Int>()
-    fun analyze(node: TreeNode?) {
-        node?.`val`?.let {
-            ml.add(it)
-        } ?: run { return }
+    fun dfs(r: TreeNode?, s: TreeNode?): Boolean {
+        if (r == null && s == null) return true
+        if (r == null && s != null) return false
+        if (s == null && r != null) return false
+        if (r?.`val` != s?.`val`) return false
 
-        node?.left?.let { analyze(it) }
-        node?.right?.let { analyze(it) }
-    }
-    analyze(subRoot)
-
-    val subRootVal = subRoot!!.`val`
-    val checker = mutableListOf<Int>()
-    var flag = false
-    fun dfs(node: TreeNode?) {
-        node?.`val`?.let {
-            if (flag) checker.add(it)
-            if (it == subRootVal) {
-                checker.add(it)
-                flag = true
-            }
-        } ?: run { return }
-
-        node?.left?.let { dfs(it) }
-        node?.right?.let { dfs(it) }
+        return dfs(r?.left, s?.left) && dfs(r?.right, s?.right)
     }
 
-    dfs(root)
-
-    fun List<Int>.contains(list: List<Int>): Boolean {
-        var ml = list.toMutableList()
-        for (el in list) {
-            if (el in this) ml.remove(el)
+    fun checkEqualHead(r: TreeNode?, s: TreeNode?): Boolean {
+        if (r == null) return false
+        if (r?.`val` == s?.`val`) {
+            if (dfs(r, s)) return true
         }
-        return ml.size == 0
+        return checkEqualHead(r?.left, s) || checkEqualHead(r?.left, s)
     }
 
-    return checker.contains(ml)
+    if (root == null || subRoot == null) return false
+    return checkEqualHead(root, subRoot)
 }
 
 fun addToArrayForm(num: IntArray, k: Int): List<Int> {
