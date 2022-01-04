@@ -922,13 +922,14 @@ fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
     analyze(subRoot)
 
     val subRootVal = subRoot!!.`val`
-    var checker = mutableListOf<Int>()
-
+    val checker = mutableListOf<Int>()
+    var flag = false
     fun dfs(node: TreeNode?) {
         node?.`val`?.let {
-            if (subRootVal == it) checker.add(it)
-            for (idx in checker.indices) {
-                if (checker[idx] != ml[idx]) return
+            if (flag) checker.add(it)
+            if (it == subRootVal) {
+                checker.add(it)
+                flag = true
             }
         } ?: run { return }
 
@@ -938,7 +939,15 @@ fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
     dfs(root)
 
-    return true
+    fun List<Int>.contains(list: List<Int>): Boolean {
+        var ml = list.toMutableList()
+        for (el in list) {
+            if (el in this) ml.remove(el)
+        }
+        return ml.size == 0
+    }
+
+    return checker.contains(ml)
 }
 
 fun addToArrayForm(num: IntArray, k: Int): List<Int> {
