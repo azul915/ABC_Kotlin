@@ -933,11 +933,30 @@ fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
 fun addToArrayForm(num: IntArray, k: Int): List<Int> {
 
-    var sb = StringBuilder()
-    for (n in num) sb.append(n.toString())
-    val sum = sb.toString().toBigDecimal() + k.toBigDecimal()
-    return "$sum".map { it.toString().toInt() }.toList()
+    var mnum = num
+    val klist = "$k".map { it.toString().toInt() }
+    var mu = 0
+    for (idx in mnum.indices) {
+        val ki = klist.lastIndex -idx
+        if (ki < 0) break
+        val sum = mnum[mnum.lastIndex -idx] + klist[ki] + mu
+        if (sum < 10) {
+            mnum[mnum.lastIndex -idx] = sum
+            mu = 0
+        } else {
+            val surplus = sum %10
+            mnum[mnum.lastIndex -idx] = surplus
+            mu = sum /10
+        }
+    }
 
+    return if (0 < mu) {
+        var mlnum = mutableListOf<Int>(mu)
+        mlnum.addAll(num.toMutableList())
+        mlnum.toList()
+    } else {
+        mnum.toList()
+    }
 }
 
 fun arrangeCoins(n: Int): Int {
