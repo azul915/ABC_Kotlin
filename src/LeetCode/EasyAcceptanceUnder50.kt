@@ -939,3 +939,16 @@ fun addToArrayForm(num: IntArray, k: Int): List<Int> {
     return "$sum".map { it.toString().toInt() }.toList()
 
 }
+
+fun arrangeCoins(n: Int): Int {
+    if (n < 2) return 1
+    var nn = n
+    var steps = 0
+    var require = 1
+    while (require <= nn) {
+        nn -= require
+        steps++
+        require++
+    }
+    return if (nn < 1) steps else steps++
+}
