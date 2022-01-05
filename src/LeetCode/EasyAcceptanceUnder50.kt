@@ -844,3 +844,129 @@ fun check(nums: IntArray): Boolean {
     }
     return true
 }
+
+fun checkAnother(nums: IntArray): Boolean {
+
+    var cnt = 0
+    for (idx in 1..nums.lastIndex) {
+        if (nums[idx] < nums[idx-1]) cnt++
+    }
+    if (nums[0] < nums[nums.lastIndex]) cnt++
+
+    return cnt < 2
+}
+
+fun areAlmostEqual(s1: String, s2: String): Boolean {
+    val list = mutableListOf<Int>()
+    for (idx in s1.indices) {
+        if (s1[idx] != s2[idx]) list.add(idx)
+    }
+    if (list.size == 0) return true
+    if (list.size != 2) return false
+    return s1[list[0]] == s2[list[1]] && s1[list[1]] == s2[list[0]]
+}
+
+fun mostCommonWord(paragraph: String, banned: Array<String>): String {
+    val pl = paragraph.split(" ", ",", ".", "!", "?", ";", "'").asSequence()
+        .filterNot { it == "" }
+        .map { it.lowercase() }
+        .filterNot { it in banned }
+    val mfe = pl.groupingBy { it }.eachCount()
+        .maxByOrNull { it.value }?.key
+    return mfe?.let { it } ?: ""
+}
+
+fun canThreePartsEqualSum(arr: IntArray): Boolean {
+
+    val sum = arr.sum()
+    if (sum %3 != 0) return false
+    val ot = sum /3
+    var partitions = 0
+    var acc = 0
+    for (idx in arr.indices) {
+        acc += arr[idx]
+        if (acc == ot) {
+            partitions++
+            acc = 0
+        }
+    }
+    return 2 < partitions
+}
+
+fun isPalindrome(head: ListNode?): Boolean {
+    val stack = mutableListOf<Int>()
+    var current = head
+    while (current != null) {
+        stack.add(current.`val`)
+        current = current?.next
+    }
+    val half = stack.size /2
+    for (idx in 0 until half) {
+        if (stack[idx] != stack[stack.lastIndex-idx]) return false
+    }
+    return true
+}
+
+fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
+
+    fun dfs(r: TreeNode?, s: TreeNode?): Boolean {
+        if (r == null && s == null) return true
+        if (r == null && s != null) return false
+        if (s == null && r != null) return false
+        if (r?.`val` != s?.`val`) return false
+
+        return dfs(r?.left, s?.left) && dfs(r?.right, s?.right)
+    }
+
+    fun checkEqualHead(r: TreeNode?, s: TreeNode?): Boolean {
+        if (r == null) return false
+        if (r?.`val` == s?.`val`) {
+            if (dfs(r, s)) return true
+        }
+        return checkEqualHead(r?.left, s) || checkEqualHead(r?.left, s)
+    }
+
+    if (root == null || subRoot == null) return false
+    return checkEqualHead(root, subRoot)
+}
+
+fun addToArrayForm(num: IntArray, k: Int): List<Int> {
+
+    var mnum = num
+    val klist = "$k".map { it.toString().toInt() }
+    var mu = 0
+    for (idx in mnum.indices) {
+        val ki = klist.lastIndex -idx
+        if (ki < 0) break
+        val sum = mnum[mnum.lastIndex -idx] + klist[ki] + mu
+        if (sum < 10) {
+            mnum[mnum.lastIndex -idx] = sum
+            mu = 0
+        } else {
+            val surplus = sum %10
+            mnum[mnum.lastIndex -idx] = surplus
+            mu = sum /10
+        }
+    }
+
+    return if (0 < mu) {
+        var mlnum = mutableListOf<Int>(mu)
+        mlnum.addAll(num.toMutableList())
+        mlnum.toList()
+    } else {
+        mnum.toList()
+    }
+}
+
+fun arrangeCoins(n: Int): Int {
+    if (n < 2) return 1
+    var nn = n
+    var steps = 0
+    var require = 1
+    while (require <= nn) {
+        nn -= require
+        steps++
+        require++
+    }
+    return if (nn < 1) steps else steps++
+}
