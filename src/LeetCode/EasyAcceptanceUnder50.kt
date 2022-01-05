@@ -909,25 +909,19 @@ fun isPalindrome(head: ListNode?): Boolean {
 
 fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
-    fun dfs(r: TreeNode?, s: TreeNode?): Boolean {
-        if (r == null && s == null) return true
-        if (r == null && s != null) return false
-        if (s == null && r != null) return false
-        if (r?.`val` != s?.`val`) return false
-
-        return dfs(r?.left, s?.left) && dfs(r?.right, s?.right)
-    }
-
-    fun checkEqualHead(r: TreeNode?, s: TreeNode?): Boolean {
-        if (r == null) return false
-        if (r?.`val` == s?.`val`) {
-            if (dfs(r, s)) return true
+    fun isSameTree(s: TreeNode?, t: TreeNode?): Boolean {
+        return when {
+            s == null || t == null -> s == null && t == null
+            s.`val` == t.`val` -> isSameTree(s?.left, t?.left) && isSameTree(s?.right, t?.right)
+            else -> false
         }
-        return checkEqualHead(r?.left, s) || checkEqualHead(r?.left, s)
     }
 
-    if (root == null || subRoot == null) return false
-    return checkEqualHead(root, subRoot)
+    return when {
+        root == null -> false
+        isSameTree(root, subRoot) -> true
+        else -> isSubtree(root?.left, subRoot) || isSubtree(root?.right, subRoot)
+    }
 }
 
 fun addToArrayForm(num: IntArray, k: Int): List<Int> {
