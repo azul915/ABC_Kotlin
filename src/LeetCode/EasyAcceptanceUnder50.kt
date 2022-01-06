@@ -964,3 +964,15 @@ fun arrangeCoins(n: Int): Int {
     }
     return if (nn < 1) steps else steps++
 }
+
+fun hasCycle(head: ListNode?): Boolean {
+
+    var current = head
+    val visited = mutableListOf<ListNode>()
+    while (current != null) {
+        visited.add(current)
+        if (current?.next in visited) return true
+        current = current?.next
+    }
+    return false
+}
