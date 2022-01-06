@@ -976,3 +976,15 @@ fun hasCycle(head: ListNode?): Boolean {
     }
     return false
 }
+
+fun hasCycleAnother(head: ListNode?): Boolean {
+    var normal = head
+    var faster = normal?.next
+
+    while (normal != null) {
+        if (normal == faster) return true
+        normal = normal?.next
+        faster = faster?.next?.next
+    }
+    return false
+}
