@@ -988,3 +988,21 @@ fun hasCycleAnother(head: ListNode?): Boolean {
     }
     return false
 }
+
+fun dominantIndex(nums: IntArray): Int {
+
+    if (nums.size < 1) return 0
+
+    var maxIdx = -1
+    var max = Int.MIN_VALUE
+    for (idx in nums.indices) {
+        if (max < nums[idx]) {
+            max =  nums[idx]
+            maxIdx = idx
+        }
+    }
+    val sn = nums.sortedDescending()
+
+    for (idx in 1..sn.lastIndex) if (max < sn[idx] shl 1) return -1
+    return maxIdx
+}
