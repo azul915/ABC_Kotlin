@@ -1,8 +1,6 @@
-package LeetCode
+package leetCode
 
-import com.sun.source.tree.Tree
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import kotlin.math.abs
@@ -50,7 +48,7 @@ class MyStack {
     }
 
     fun pop(): Int {
-        var q2 = java.util.ArrayDeque<Int>()
+        val q2 = java.util.ArrayDeque<Int>()
         while (q1.size > 1) {
             val head = q1.removeFirst()
             q2.add(head)
@@ -61,7 +59,7 @@ class MyStack {
     }
 
     fun top(): Int {
-        var q2 = java.util.ArrayDeque<Int>()
+        val q2 = java.util.ArrayDeque<Int>()
         while (q1.size > 1) {
             val head = q1.removeFirst()
             q2.add(head)
@@ -96,7 +94,7 @@ fun isSubsequence(s: String, t: String): Boolean {
 fun climbStairs(n: Int): Int {
     if (n < 3) return n
 
-    var array = Array<Int>(n + 1) { if (it < 3) it else 0 }
+    val array = Array(n + 1) { if (it < 3) it else 0 }
 
     for (i in 3..n) {
         array[i] = array[i - 1] + array[i - 2]
@@ -106,8 +104,8 @@ fun climbStairs(n: Int): Int {
 }
 
 fun findJudge(n: Int, trust: Array<IntArray>): Int {
-    var subject = Array(n + 1) { 0 }
-    var trusted = Array(n + 1) { 0 }
+    val subject = Array(n + 1) { 0 }
+    val trusted = Array(n + 1) { 0 }
     for (t in trust) {
         val subj = t[0]
         val obj = t[1]
@@ -121,7 +119,7 @@ fun findJudge(n: Int, trust: Array<IntArray>): Int {
 }
 
 fun isValid(s: String): Boolean {
-    val bracket = mapOf<Char, Char>(')' to '(', ']' to '[', '}' to '{')
+    val bracket = mapOf(')' to '(', ']' to '[', '}' to '{')
     val stack = mutableListOf<Char>()
     for (char in s) {
         if (char in bracket.values) {
@@ -151,7 +149,7 @@ fun rotateStringAnotherAnswer(s: String, goal: String): Boolean {
 }
 
 fun reverseStr(s: String, k: Int): String {
-    var sm = s.toMutableList()
+    val sm = s.toMutableList()
     for (start in s.indices step 2*k) {
         var left = start
         var right = min(start + k - 1 ,s.length - 1)
@@ -167,7 +165,7 @@ fun reverseStr(s: String, k: Int): String {
 }
 
 fun readBinaryWatch(turnedOn: Int): List<String> {
-    var answer = mutableListOf<String>()
+    val answer = mutableListOf<String>()
 
     fun bitCount(num: Int): Int {
         var tmp = num
@@ -190,20 +188,16 @@ fun readBinaryWatch(turnedOn: Int): List<String> {
 }
 
 fun validPath(n: Int, edges: Array<IntArray>, start: Int, end: Int): Boolean {
-    var dests = mutableMapOf<Int, MutableList<Int>>()
-    var visited = mutableSetOf<Int>()
+    val dests = mutableMapOf<Int, MutableList<Int>>()
+    val visited = mutableSetOf<Int>()
 
     for (edge in edges) {
         val from = edge[0]
         val to = edge[1]
-        dests[from]?.let {
-            it.add(to)
-        } ?: run {
+        dests[from]?.add(to) ?: run {
             dests[from] = mutableListOf(to)
         }
-        dests[to]?.let {
-            it.add(from)
-        } ?: run {
+        dests[to]?.add(from) ?: run {
             dests[to] = mutableListOf(from)
         }
     }
@@ -246,7 +240,7 @@ fun maxSubArray(nums: IntArray): Int {
 fun addBinary(a: String, b: String): String {
 
     val maxLength = max(a.length, b.length) + 1
-    val ansArray = Array<Int>(maxLength) { 0 }
+    val ansArray = Array(maxLength) { 0 }
     var carried = 0
     for (dist in 1..maxLength) {
         val aidx = a.length - dist
@@ -296,8 +290,8 @@ fun addBinary(a: String, b: String): String {
 
 class MinStack {
 
-    var stack = mutableListOf<Int>()
-    var min = Int.MAX_VALUE
+    private var stack = mutableListOf<Int>()
+    private var min = Int.MAX_VALUE
 
     fun push(`val`: Int) {
        if (`val` < min) min = `val`
@@ -324,7 +318,7 @@ class MinStack {
 }
 
 class MinStackAnother {
-    var stack = mutableListOf<Pair<Int, Int>>()
+    private var stack = mutableListOf<Pair<Int, Int>>()
 
     fun push(`val`: Int) {
 
@@ -395,16 +389,16 @@ fun getIntersectionNode(headA: ListNode?, headB: ListNode?): ListNode? {
 //            pointerB = it
 //        } ?: pointerB = headA
 
-        if (pointerA == null) {
-            pointerA = headB
+        pointerA = if (pointerA == null) {
+            headB
         } else {
-            pointerA = pointerA?.next
+            pointerA?.next
         }
 
-        if (pointerB == null) {
-            pointerB = headA
+        pointerB = if (pointerB == null) {
+            headA
         } else {
-            pointerB = pointerB?.next
+            pointerB?.next
         }
     }
     return pointerA
@@ -497,7 +491,7 @@ fun prefixedsDivBy5(nums: IntArray): List<Boolean> {
 fun backspaceCompare(s: String, t: String): Boolean {
 
     fun inputResult(input: String): String {
-        var stack = mutableListOf<Char>()
+        val stack = mutableListOf<Char>()
 
         for (ch in input) {
             if (ch == '#') {
@@ -514,12 +508,12 @@ fun backspaceCompare(s: String, t: String): Boolean {
 
 fun convertToBase7(num: Int): String {
     var target = num
-    var base7List = mutableListOf<Int>()
+    val base7List = mutableListOf<Int>()
 
     do {
         val remainder = if (target /7 == 0) target %7 else abs(target %7)
         base7List.add(remainder)
-        target = target /7
+        target /= 7
     } while (target != 0)
 
     return base7List.reversed().joinToString("")
@@ -528,7 +522,7 @@ fun convertToBase7(num: Int): String {
 fun convertToBase7Another(num: Int): String {
 
     if (num < 0) return "-${convertToBase7Another(-num)}"
-    if (num < 7) return "${convertToBase7Another(num)}"
+    if (num < 7) return convertToBase7Another(num)
     return "${convertToBase7Another(num /7)}${num %7}"
 
 }
@@ -639,7 +633,7 @@ fun reverseVowels(s: String): String {
 
     var left = 0
     var right = s.lastIndex
-    val vowels = setOf<Char>('a','e','i','o','u','A','E','I','O','U')
+    val vowels = setOf('a','e','i','o','u','A','E','I','O','U')
     val sca = s.toCharArray()
     while (left < right) {
         if (sca[left] in vowels && sca[right] in vowels) {
@@ -690,7 +684,7 @@ class TreeNode(var `val`: Int) {
 
 fun findMode(root: TreeNode?): IntArray {
 
-    var visited = mutableMapOf<Int, Int>()
+    val visited = mutableMapOf<Int, Int>()
     fun dfs(node: TreeNode?) {
         node?.`val`?.let {
            if (visited.containsKey(it)) {
@@ -734,7 +728,7 @@ fun isBalanced(root: TreeNode?): Boolean {
 fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
 
     var ans = 0
-    var count = mutableMapOf<Int, Int>()
+    val count = mutableMapOf<Int, Int>()
 
     for (domino in dominoes) {
         val key = minOf(domino[0], domino[1]) *10 +maxOf(domino[0], domino[1])
@@ -765,7 +759,7 @@ fun toHex(num: Int): String {
     // prohibited to directory solve
     // return Integer.toHexString(num)
 
-    val convMap = mapOf<Int, String>(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
+    val convMap = mapOf(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
     val bs = Integer.toBinaryString(num)
     val binStr = when (bs.length % 4) {
         0 -> bs
@@ -791,10 +785,10 @@ fun toHex(num: Int): String {
 }
 
 fun toHexAnother(num: Int): String {
-    val convMap = mapOf<Int, String>(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
+    val convMap = mapOf(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
 
     fun forNeg(neg: Int): String {
-        var sb = StringBuilder()
+        val sb = StringBuilder()
         val etc = abs(neg).toUInt().inv() +1.toUInt()
         var cn = etc.toString().toLong()
 
@@ -811,7 +805,7 @@ fun toHexAnother(num: Int): String {
     }
 
     fun forPos(pos: Int): String {
-        var sb = StringBuilder()
+        val sb = StringBuilder()
         var cp = pos
 
         while (0 < cp) {
@@ -874,7 +868,7 @@ fun mostCommonWord(paragraph: String, banned: Array<String>): String {
         .filterNot { it in banned }
     val mfe = pl.groupingBy { it }.eachCount()
         .maxByOrNull { it.value }?.key
-    return mfe?.let { it } ?: ""
+    return mfe ?: ""
 }
 
 fun canThreePartsEqualSum(arr: IntArray): Boolean {
@@ -933,29 +927,28 @@ fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
 fun addToArrayForm(num: IntArray, k: Int): List<Int> {
 
-    var mnum = num
     val klist = "$k".map { it.toString().toInt() }
     var mu = 0
-    for (idx in mnum.indices) {
-        val ki = klist.lastIndex -idx
+    for (idx in num.indices) {
+        val ki = klist.lastIndex - idx
         if (ki < 0) break
-        val sum = mnum[mnum.lastIndex -idx] + klist[ki] + mu
+        val sum = num[num.lastIndex - idx] + klist[ki] + mu
         if (sum < 10) {
-            mnum[mnum.lastIndex -idx] = sum
+            num[num.lastIndex - idx] = sum
             mu = 0
         } else {
-            val surplus = sum %10
-            mnum[mnum.lastIndex -idx] = surplus
-            mu = sum /10
+            val surplus = sum % 10
+            num[num.lastIndex - idx] = surplus
+            mu = sum / 10
         }
     }
 
     return if (0 < mu) {
-        var mlnum = mutableListOf<Int>(mu)
+        val mlnum = mutableListOf(mu)
         mlnum.addAll(num.toMutableList())
         mlnum.toList()
     } else {
-        mnum.toList()
+        num.toList()
     }
 }
 
@@ -970,4 +963,8 @@ fun arrangeCoins(n: Int): Int {
         require++
     }
     return if (nn < 1) steps else steps++
+}
+
+fun test(str: String): String {
+    return "${str}test"
 }
