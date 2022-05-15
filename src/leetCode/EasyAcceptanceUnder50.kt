@@ -952,7 +952,7 @@ fun arrangeCoins(n: Int): Int {
         steps++
         require++
     }
-    return if (nn < 1) steps else steps++
+    return steps
 }
 
 fun test(str: String): String {
