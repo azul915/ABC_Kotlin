@@ -150,9 +150,9 @@ fun rotateStringAnotherAnswer(s: String, goal: String): Boolean {
 
 fun reverseStr(s: String, k: Int): String {
     val sm = s.toMutableList()
-    for (start in s.indices step 2*k) {
+    for (start in s.indices step 2 * k) {
         var left = start
-        var right = min(start + k - 1 ,s.length - 1)
+        var right = min(start + k - 1, s.length - 1)
         while (left < right) {
             val tmp = sm[left]
             sm[left] = sm[right]
@@ -294,7 +294,7 @@ class MinStack {
     private var min = Int.MAX_VALUE
 
     fun push(`val`: Int) {
-       if (`val` < min) min = `val`
+        if (`val` < min) min = `val`
         stack.add(`val`)
     }
 
@@ -334,7 +334,7 @@ class MinStackAnother {
     fun pop() {
         stack.removeAt(stack.lastIndex)
     }
-    
+
     fun top(): Int {
         return stack.last().first
     }
@@ -482,8 +482,8 @@ fun prefixedsDivBy5(nums: IntArray): List<Boolean> {
     val list = mutableListOf<Boolean>()
     var num = 0
     for (n in nums) {
-        num = (num *2 +n) %5
-        list.add(num %5 == 0)
+        num = (num * 2 + n) % 5
+        list.add(num % 5 == 0)
     }
     return list
 }
@@ -511,7 +511,7 @@ fun convertToBase7(num: Int): String {
     val base7List = mutableListOf<Int>()
 
     do {
-        val remainder = if (target /7 == 0) target %7 else abs(target %7)
+        val remainder = if (target / 7 == 0) target % 7 else abs(target % 7)
         base7List.add(remainder)
         target /= 7
     } while (target != 0)
@@ -523,7 +523,7 @@ fun convertToBase7Another(num: Int): String {
 
     if (num < 0) return "-${convertToBase7Another(-num)}"
     if (num < 7) return convertToBase7Another(num)
-    return "${convertToBase7Another(num /7)}${num %7}"
+    return "${convertToBase7Another(num / 7)}${num % 7}"
 
 }
 
@@ -533,9 +533,9 @@ fun checkRecord(s: String): Boolean {
     var absenses = 0
     for (idx in attendanceList.indices) {
 
-        when(idx) {
+        when (idx) {
             0 -> {
-                when(attendanceList[idx]) {
+                when (attendanceList[idx]) {
                     'A' -> {
                         absenses++
                         attendanceList[idx] = 0
@@ -549,14 +549,14 @@ fun checkRecord(s: String): Boolean {
                 }
             }
             else -> { // idx > 0
-                when(attendanceList[idx]) {
+                when (attendanceList[idx]) {
                     'A' -> {
                         absenses++
                         attendanceList[idx] = 0
                     }
                     'L' -> {
-                        val yesterday = attendanceList[idx-1] as Int
-                        attendanceList[idx] = yesterday +1
+                        val yesterday = attendanceList[idx - 1] as Int
+                        attendanceList[idx] = yesterday + 1
                     }
                     else -> {
                         attendanceList[idx] = 0
@@ -582,7 +582,10 @@ fun checkRecordAnother(s: String): Boolean {
 fun maximumProduct(nums: IntArray): Int {
 
     val sorted = nums.sorted()
-    return max(sorted[nums.lastIndex -2] * sorted[nums.lastIndex -1] * sorted[nums.lastIndex], sorted[0] * sorted[1] * sorted[nums.lastIndex])
+    return max(
+        sorted[nums.lastIndex - 2] * sorted[nums.lastIndex - 1] * sorted[nums.lastIndex],
+        sorted[0] * sorted[1] * sorted[nums.lastIndex]
+    )
 }
 
 fun maxiumProductAnother(nums: IntArray): Int {
@@ -633,7 +636,7 @@ fun reverseVowels(s: String): String {
 
     var left = 0
     var right = s.lastIndex
-    val vowels = setOf('a','e','i','o','u','A','E','I','O','U')
+    val vowels = setOf('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U')
     val sca = s.toCharArray()
     while (left < right) {
         if (sca[left] in vowels && sca[right] in vowels) {
@@ -670,8 +673,8 @@ fun isOneBitCharacter(bits: IntArray): Boolean {
     var idx = 0
     while (idx < bits.lastIndex) {
         idx = when (bits[idx]) {
-            0 -> idx +1
-            else -> idx +2 // if (bits[idx] == 1)
+            0 -> idx + 1
+            else -> idx + 2 // if (bits[idx] == 1)
         }
     }
     return idx == bits.lastIndex
@@ -687,12 +690,12 @@ fun findMode(root: TreeNode?): IntArray {
     val visited = mutableMapOf<Int, Int>()
     fun dfs(node: TreeNode?) {
         node?.`val`?.let {
-           if (visited.containsKey(it)) {
-               val v = visited[it] ?: return
-                visited[it] = v +1
-           } else {
-               visited[it] = 1
-           }
+            if (visited.containsKey(it)) {
+                val v = visited[it] ?: return
+                visited[it] = v + 1
+            } else {
+                visited[it] = 1
+            }
         } ?: run { return }
         node?.left?.let { dfs(it) }
         node?.right?.let { dfs(it) }
@@ -718,8 +721,8 @@ fun isBalanced(root: TreeNode?): Boolean {
         val ld = dfs(node?.left)
         val rd = dfs(node?.right)
 
-        if (ld == -1 || rd == -1 || abs(ld -rd) > 1) return -1
-        return maxOf(ld, rd) +1
+        if (ld == -1 || rd == -1 || abs(ld - rd) > 1) return -1
+        return maxOf(ld, rd) + 1
     }
 
     return dfs(root) != -1
@@ -731,9 +734,9 @@ fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
     val count = mutableMapOf<Int, Int>()
 
     for (domino in dominoes) {
-        val key = minOf(domino[0], domino[1]) *10 +maxOf(domino[0], domino[1])
+        val key = minOf(domino[0], domino[1]) * 10 + maxOf(domino[0], domino[1])
         ans += count.getOrDefault(key, 0)
-        count[key] = count.getOrDefault(key, 0)+1
+        count[key] = count.getOrDefault(key, 0) + 1
     }
     return ans
 
@@ -745,11 +748,11 @@ fun nextGreatestLetter(letters: CharArray, target: Char): Char {
     var right = letters.lastIndex
 
     while (left <= right) {
-        val middle = left +(right - left)/2
+        val middle = left + (right - left) / 2
         if (letters[middle] > target) {
-            right = middle -1
+            right = middle - 1
         } else {
-            left = middle +1
+            left = middle + 1
         }
     }
     return letters[left % letters.size]
@@ -759,7 +762,7 @@ fun toHex(num: Int): String {
     // prohibited to directory solve
     // return Integer.toHexString(num)
 
-    val convMap = mapOf(10 to "a",11 to "b",12 to "c",13 to "d",14 to "e", 15 to "f")
+    val convMap = mapOf(10 to "a", 11 to "b", 12 to "c", 13 to "d", 14 to "e", 15 to "f")
     val bs = Integer.toBinaryString(num)
     val binStr = when (bs.length % 4) {
         0 -> bs
@@ -772,9 +775,9 @@ fun toHex(num: Int): String {
 
     for (idx in binStr.lastIndex downTo 0) {
 
-        val tmp = binStr[idx].toString().toDouble()*2.0.pow((binStr.lastIndex -idx) %4)
+        val tmp = binStr[idx].toString().toDouble() * 2.0.pow((binStr.lastIndex - idx) % 4)
         acc += tmp.toInt()
-        if ((binStr.lastIndex -idx) %4 == 3) {
+        if ((binStr.lastIndex - idx) % 4 == 3) {
 
             val degit = if (acc > 9) convMap[acc] else acc.toString()
             ans = "$degit$ans"
@@ -789,14 +792,14 @@ fun toHexAnother(num: Int): String {
 
     fun forNeg(neg: Int): String {
         val sb = StringBuilder()
-        val etc = abs(neg).toUInt().inv() +1.toUInt()
+        val etc = abs(neg).toUInt().inv() + 1.toUInt()
         var cn = etc.toString().toLong()
 
         while (0 < cn) {
-            val surplus = if (9 < cn%16) {
-                convMap[(cn%16).toInt()]
+            val surplus = if (9 < cn % 16) {
+                convMap[(cn % 16).toInt()]
             } else {
-                (cn%16).toString()
+                (cn % 16).toString()
             }
             sb.insert(0, surplus)
             cn /= 16
@@ -809,10 +812,10 @@ fun toHexAnother(num: Int): String {
         var cp = pos
 
         while (0 < cp) {
-            val surplus = if (9 < cp%16) {
-                convMap[cp%16]
+            val surplus = if (9 < cp % 16) {
+                convMap[cp % 16]
             } else {
-                (cp%16).toString()
+                (cp % 16).toString()
             }
             sb.insert(0, surplus)
             cp /= 16
@@ -831,7 +834,7 @@ fun check(nums: IntArray): Boolean {
 
     var cnt = 0
     for (idx in 1..nums.lastIndex) {
-        if (nums[idx] < nums[idx-1]) {
+        if (nums[idx] < nums[idx - 1]) {
             cnt++
             if (1 < cnt) return false
         }
@@ -844,7 +847,7 @@ fun checkAnother(nums: IntArray): Boolean {
 
     var cnt = 0
     for (idx in 1..nums.lastIndex) {
-        if (nums[idx] < nums[idx-1]) cnt++
+        if (nums[idx] < nums[idx - 1]) cnt++
     }
     if (nums[0] < nums[nums.lastIndex]) cnt++
 
@@ -874,8 +877,8 @@ fun mostCommonWord(paragraph: String, banned: Array<String>): String {
 fun canThreePartsEqualSum(arr: IntArray): Boolean {
 
     val sum = arr.sum()
-    if (sum %3 != 0) return false
-    val ot = sum /3
+    if (sum % 3 != 0) return false
+    val ot = sum / 3
     var partitions = 0
     var acc = 0
     for (idx in arr.indices) {
@@ -895,9 +898,9 @@ fun isPalindrome(head: ListNode?): Boolean {
         stack.add(current.`val`)
         current = current?.next
     }
-    val half = stack.size /2
+    val half = stack.size / 2
     for (idx in 0 until half) {
-        if (stack[idx] != stack[stack.lastIndex-idx]) return false
+        if (stack[idx] != stack[stack.lastIndex - idx]) return false
     }
     return true
 }
@@ -929,7 +932,7 @@ fun addToArrayForm(num: IntArray, k: Int): List<Int> {
 
     var cur = k
     val ans = mutableListOf<Int>()
-    var i = num.size-1
+    var i = num.size - 1
     while (0 <= i || 0 < cur) {
         if (0 <= i) {
             cur += num[i]
@@ -943,18 +946,29 @@ fun addToArrayForm(num: IntArray, k: Int): List<Int> {
 }
 
 fun arrangeCoins(n: Int): Int {
-    if (n < 2) return 1
-    var nn = n
-    var steps = 0
-    var require = 1
-    while (require <= nn) {
-        nn -= require
-        steps++
-        require++
-    }
-    return steps
-}
+//    if (n < 2) return 1
+//    var nn = n
+//    var steps = 0
+//    var require = 1
+//    while (require <= nn) {
+//        nn -= require
+//        steps++
+//        require++
+//    }
+//    return steps
 
-fun test(str: String): String {
-    return "${str}test"
+    var left: Long = 0
+    var right: Long = n.toLong()
+    while (left <= right) {
+        val mid: Long = left + (right - left) / 2
+        val cur: Long = mid * (mid + 1) / 2
+        if (cur == n.toLong()) return mid.toInt()
+
+        if (n < cur) {
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
+    }
+    return right.toInt()
 }
