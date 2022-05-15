@@ -927,48 +927,19 @@ fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
 fun addToArrayForm(num: IntArray, k: Int): List<Int> {
 
-    val kl = "$k".map { it.toString().toInt() }
-    val ze: Array<Int>
-    if (num.lastIndex <= kl.lastIndex) {
-        val diff = kl.lastIndex - num.lastIndex
-        ze = Array(kl.size) { if (it < diff) 0 else num[it-diff] }
-        val ans = Array<Int>(kl.size +1) { 0 }
-        for (i in ze.lastIndex downTo 0) {
-            if (9 < ze[i] + kl[i]) {
-                ans[i+1] = ans[i+1] + ze[i] + kl[i] - 10
-                ans[i]++
-            } else {
-                ans[i+1] = ans[i+1] + ze[i] + kl[i]
-            }
+    var cur = k
+    val ans = mutableListOf<Int>()
+    var i = num.size-1
+    while (0 <= i || 0 < cur) {
+        if (0 <= i) {
+            cur += num[i]
         }
-        return if (ans[0] == 0) {
-            ans.slice(1..ans.lastIndex)
-        } else {
-            ans.toList()
-        }
-    } else {
-        val diff = num.lastIndex - kl.lastIndex
-        ze = Array(num.size) { if (it < diff) 0 else kl[it-diff] }
-        val ans = Array<Int>(num.size +1) { 0 }
-//        println(ans.contentToString())
-        for (i in ze.lastIndex downTo 0){
-            if (9 < ze[i] + num[i]) {
-                ans[i+1] = ans[i+1] + ze[i] + num[i] -10
-                ans[i]++
-                println("$i, ${ans.contentToString()}")
-            } else {
-                println("ans[${i+1}]: ${ans[i+1]}, ze[$i]: ${ze[i]}, num[$i]: ${num[i]}")
-                ans[i+1] = ans[i+1] + ze[i] + num[i]
-                println("$i, ${ans.contentToString()}")
-            }
-        }
-        return if (ans[0] == 0) {
-            ans.slice(1..ans.lastIndex)
-        } else {
-            ans.toList()
-        }
+        ans.add(cur % 10)
+        cur /= 10
+        i--
     }
 
+    return ans.reversed()
 }
 
 fun arrangeCoins(n: Int): Int {
