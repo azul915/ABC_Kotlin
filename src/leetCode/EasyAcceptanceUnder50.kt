@@ -976,10 +976,12 @@ fun arrangeCoins(n: Int): Int {
 fun isPowerOfTwo(n: Int): Boolean {
     if (n < 1 || 1073741824 < n) return false
     if (n == 1) return true
-    var acc = 1
-    while (acc <= n) {
-        acc *= 2
-        if (acc == n) return true
+    var cur = 1
+    var shifted = 2
+    while (shifted <= n) {
+        shifted = cur shl 1
+        if (shifted == n) return true
+        cur = shifted
     }
     return false
 }

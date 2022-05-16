@@ -5,7 +5,6 @@ import kotlin.test.assertTrue
 
 
 fun main() {
-
     assertFalse(isPowerOfTwo(0))
     assertTrue(isPowerOfTwo(1))
     assertTrue(isPowerOfTwo(2))
@@ -19,4 +18,5 @@ fun main() {
     assertTrue(isPowerOfTwo(512))
     assertTrue(isPowerOfTwo(1024))
     assertFalse(isPowerOfTwo(2147483647))
+
 }
