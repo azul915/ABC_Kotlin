@@ -972,3 +972,22 @@ fun arrangeCoins(n: Int): Int {
     }
     return right.toInt()
 }
+
+fun isPowerOfTwo(n: Int): Boolean {
+    if (1073741824 < n) return false
+    var pow = 0
+    while (2.0.pow(pow).toInt() <= n) {
+        println(2.0.pow(pow).toInt())
+        if (2.0.pow(pow).toInt() == n) {
+            return true
+        }
+        pow++
+    }
+    return false
+}
+
+//fun pows() {
+//    (1..10).forEach {
+//        println(2.0.pow(it).toInt())
+//    }
+//}

@@ -1,8 +1,9 @@
  import leetCode.*
  import kotlin.test.assertEquals
+ import kotlin.test.assertFalse
+ import kotlin.test.assertTrue
 
 
  fun main() {
-     assertEquals(2, arrangeCoins(5))
-     assertEquals(3, arrangeCoins(8))
+    assertFalse(isPowerOfTwo(2147483647))
 }
